@@ -442,11 +442,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/maxwallwey/Downloads/Max/Programming/ComfyMusic/ComfyMusic.csproj",
+      "projectUniqueName": "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/ComfyMusic/ComfyMusic.csproj",
       "projectName": "ComfyMusic",
-      "projectPath": "/Users/maxwallwey/Downloads/Max/Programming/ComfyMusic/ComfyMusic.csproj",
+      "projectPath": "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/ComfyMusic/ComfyMusic.csproj",
       "packagesPath": "/Users/maxwallwey/.nuget/packages/",
-      "outputPath": "/Users/maxwallwey/Downloads/Max/Programming/ComfyMusic/obj/",
+      "outputPath": "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/ComfyMusic/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/maxwallwey/.nuget/NuGet/NuGet.Config"
