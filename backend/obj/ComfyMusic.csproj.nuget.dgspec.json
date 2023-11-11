@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/ComfyMusic/ComfyMusic.csproj": {}
+    "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/backend/ComfyMusic.csproj": {}
   },
   "projects": {
-    "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/ComfyMusic/ComfyMusic.csproj": {
+    "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/backend/ComfyMusic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/ComfyMusic/ComfyMusic.csproj",
+        "projectUniqueName": "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/backend/ComfyMusic.csproj",
         "projectName": "ComfyMusic",
-        "projectPath": "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/ComfyMusic/ComfyMusic.csproj",
+        "projectPath": "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/backend/ComfyMusic.csproj",
         "packagesPath": "/Users/maxwallwey/.nuget/packages/",
-        "outputPath": "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/ComfyMusic/obj/",
+        "outputPath": "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/maxwallwey/.nuget/NuGet/NuGet.Config"

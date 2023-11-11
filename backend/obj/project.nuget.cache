@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8A5k8U+Vl3PtzFLpctf13abc3rY3Rx8lwXx3cRtppcftBko/v57ziqwIlSnZF5PDn24Qjzz3hCnhiMT/MW3QBA==",
+  "dgSpecHash": "Mo4LD0JlPI0MCekzIVKl9BkY/tsR8U0IOt6ShBvpaEfiEzhAYjeVP5/V7Zw2xtXcjNxJ37WRpC7RHxwrcoXP+Q==",
   "success": true,
-  "projectFilePath": "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/ComfyMusic/ComfyMusic.csproj",
+  "projectFilePath": "/Users/maxwallwey/Documents/GitHub/ComfyMusicAPI/backend/ComfyMusic.csproj",
   "expectedPackageFiles": [
     "/Users/maxwallwey/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/Users/maxwallwey/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
