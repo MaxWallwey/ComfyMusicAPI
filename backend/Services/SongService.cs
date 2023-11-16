@@ -1,6 +1,6 @@
 using ComfyMusic.Models;
 
-namespace ComfyMusic.Servies;
+namespace ComfyMusic.Services;
 
 public static class SongService
 {
