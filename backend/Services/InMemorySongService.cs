@@ -14,31 +14,44 @@ public class InMemorySongService : ISongService
             new Song { Id = 2, Name = "Growing Sideways", Album = "Stick Season", Artist = "Noah Kahan" }
         };
     }
-    public List<Song> GetAll() => Songs;
 
-    public Song? Get(int id) => Songs.FirstOrDefault(p => p.Id == id);
+    public Task<List<Song>> GetAll()
+    {
+        return Task.FromResult(Songs);
+    }
 
-    public void Add(Song song)
+    public Task<Song?> Get(int id)
+    {
+        return Task.FromResult(Songs.FirstOrDefault(p => p.Id == id));
+    }
+    public Task Add(Song song)
     {
         song.Id = nextId++;
         Songs.Add(song);
+        return Task.CompletedTask;
     }
 
-    public void Delete(int id)
+    public async Task Delete(int id)
     {
-        var song = Get(id);
-        if(song is null)
+        var song = await Get(id);
+        if (song is null)
+        {
             return;
+        }
 
         Songs.Remove(song);
     }
 
-    public void Update(Song song)
+    public Task Update(Song song)
     {
         var index = Songs.FindIndex(p => p.Id == song.Id);
-        if(index == -1)
-            return;
+        if (index == -1)
+        {
+            return Task.CompletedTask;
+        }
         
         Songs[index] = song;
+
+        return Task.CompletedTask;
     }
 }

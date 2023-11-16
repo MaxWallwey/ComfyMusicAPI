@@ -4,13 +4,13 @@ namespace ComfyMusic.Services;
 
 public interface ISongService
 {
-    public List<Song> GetAll();
+    public Task<List<Song>> GetAll();
 
-    public Song? Get(int id);
+    public Task<Song?> Get(int id);
 
-    public void Add(Song song);
+    public Task Add(Song song);
 
-    public void Delete(int id);
+    public Task Delete(int id);
 
-    public void Update(Song song);
+    public Task Update(Song song);
 }

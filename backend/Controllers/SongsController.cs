@@ -17,15 +17,15 @@ public class SongsController : ControllerBase
     }
     
     [HttpGet]
-    public ActionResult<List<Song>> GetAll()
+    public async Task<ActionResult<List<Song>>> GetAll()
     {
-        return _songService.GetAll();
+        return await _songService.GetAll();
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Song> Get(int id)
+    public async Task<ActionResult<Song>> Get(int id)
     {
-        var song = _songService.Get(id);
+        var song = await _songService.Get(id);
 
         if (song == null)
         {
@@ -36,42 +36,42 @@ public class SongsController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(Song song)
+    public async Task<IActionResult> Create(Song song)
     {
-        _songService.Add(song);
+        await _songService.Add(song);
         return CreatedAtAction(nameof(Get), new { id = song.Id }, song);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Song song)
+    public async Task<IActionResult> Update(int id, Song song)
     {
         if (id != song.Id)
         {
             return BadRequest();
         }
            
-        var existingPizza = _songService.Get(id);
+        var existingPizza = await _songService.Get(id);
         if (existingPizza is null)
         {
             return NotFound();
         }
    
-        _songService.Update(song);           
+        await _songService.Update(song);           
    
         return NoContent();
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var song = _songService.Get(id);
+        var song = await _songService.Get(id);
 
         if (song is null)
         {
             return NotFound();
         }
         
-        _songService.Delete(id);
+        await _songService.Delete(id);
 
         return NoContent();
     }
