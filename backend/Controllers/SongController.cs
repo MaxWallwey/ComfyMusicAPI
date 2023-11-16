@@ -1,5 +1,5 @@
 using ComfyMusic.Models;
-using ComfyMusic.Servies;
+using ComfyMusic.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ComfyMusic.Controllers;
@@ -8,10 +8,6 @@ namespace ComfyMusic.Controllers;
 [Route("[controller]")]
 public class SongController : ControllerBase
 {
-    public SongController()
-    {
-    }
-
     [HttpGet]
     public ActionResult<List<Song>> GetAll() => SongService.GetAll();
 
