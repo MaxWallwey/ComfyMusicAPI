@@ -8,16 +8,24 @@ namespace ComfyMusic.Controllers;
 [Route("[controller]")]
 public class SongsController : ControllerBase
 {
+    private readonly ISongService _songService;
+
+    // TODO: Read about dependency injection
+    public SongsController(ISongService songService)
+    {
+        _songService = songService;
+    }
+    
     [HttpGet]
     public ActionResult<List<Song>> GetAll()
     {
-        return SongService.GetAll();
+        return _songService.GetAll();
     }
 
     [HttpGet("{id}")]
     public ActionResult<Song> Get(int id)
     {
-        var song = SongService.Get(id);
+        var song = _songService.Get(id);
 
         if (song == null)
         {
@@ -30,7 +38,7 @@ public class SongsController : ControllerBase
     [HttpPost]
     public IActionResult Create(Song song)
     {
-        SongService.Add(song);
+        _songService.Add(song);
         return CreatedAtAction(nameof(Get), new { id = song.Id }, song);
     }
 
@@ -42,13 +50,13 @@ public class SongsController : ControllerBase
             return BadRequest();
         }
            
-        var existingPizza = SongService.Get(id);
+        var existingPizza = _songService.Get(id);
         if (existingPizza is null)
         {
             return NotFound();
         }
    
-        SongService.Update(song);           
+        _songService.Update(song);           
    
         return NoContent();
     }
@@ -56,14 +64,14 @@ public class SongsController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        var song = SongService.Get(id);
+        var song = _songService.Get(id);
 
         if (song is null)
         {
             return NotFound();
         }
         
-        SongService.Delete(id);
+        _songService.Delete(id);
 
         return NoContent();
     }

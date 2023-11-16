@@ -2,11 +2,11 @@ using ComfyMusic.Models;
 
 namespace ComfyMusic.Services;
 
-public static class SongService
+public class InMemorySongService : ISongService
 {
     static List<Song> Songs { get; }
     static int nextId = 3;
-    static SongService()
+    static InMemorySongService()
     {
         Songs = new List<Song>
         {
@@ -14,17 +14,17 @@ public static class SongService
             new Song { Id = 2, Name = "Growing Sideways", Album = "Stick Season", Artist = "Noah Kahan" }
         };
     }
-    public static List<Song> GetAll() => Songs;
+    public List<Song> GetAll() => Songs;
 
-    public static Song? Get(int id) => Songs.FirstOrDefault(p => p.Id == id);
+    public Song? Get(int id) => Songs.FirstOrDefault(p => p.Id == id);
 
-    public static void Add(Song song)
+    public void Add(Song song)
     {
         song.Id = nextId++;
         Songs.Add(song);
     }
 
-    public static void Delete(int id)
+    public void Delete(int id)
     {
         var song = Get(id);
         if(song is null)
@@ -33,7 +33,7 @@ public static class SongService
         Songs.Remove(song);
     }
 
-    public static void Update(Song song)
+    public void Update(Song song)
     {
         var index = Songs.FindIndex(p => p.Id == song.Id);
         if(index == -1)
