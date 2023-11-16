@@ -10,23 +10,15 @@ public class MongoDBSongService : ISongService
     public async Task<List<Song>> GetAll()
     {
         var client = new MongoClient("mongodb://localhost:27017");
-        var database = client.GetDatabase("foo");
-        var collection = database.GetCollection<BsonDocument>("bar");
+        var database = client.GetDatabase("comfy-music");
+        var collection = database.GetCollection<Song>("songs");
 
-        await collection.InsertOneAsync(new BsonDocument("Name", "Jack"));
+        var list = await collection.Find(x => true).ToListAsync();
 
-        var list = await collection.Find(new BsonDocument("Name", "Jack"))
-            .ToListAsync();
-
-        foreach(var document in list)
-        {
-            Console.WriteLine(document["Name"]);
-        }
-
-        throw new NotImplementedException();
+        return list;
     }
 
-    public Task<Song?> Get(int id)
+    public Task<Song?> Get(ObjectId id)
     {
         throw new NotImplementedException();
     }
@@ -36,7 +28,7 @@ public class MongoDBSongService : ISongService
         throw new NotImplementedException();
     }
 
-    public Task Delete(int id)
+    public Task Delete(ObjectId id)
     {
         throw new NotImplementedException();
     }

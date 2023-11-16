@@ -1,4 +1,5 @@
 using ComfyMusic.Models;
+using MongoDB.Bson;
 
 namespace ComfyMusic.Services;
 
@@ -10,8 +11,8 @@ public class InMemorySongService : ISongService
     {
         Songs = new List<Song>
         {
-            new Song { Id = 1, Name = "Rebel Rebel", Album = "Diamond Dogs", Artist = "David Bowie" },
-            new Song { Id = 2, Name = "Growing Sideways", Album = "Stick Season", Artist = "Noah Kahan" }
+            new Song { Id = ObjectId.GenerateNewId(), Name = "Rebel Rebel", Album = "Diamond Dogs", Artist = "David Bowie" },
+            new Song { Id = ObjectId.GenerateNewId(), Name = "Growing Sideways", Album = "Stick Season", Artist = "Noah Kahan" }
         };
     }
 
@@ -20,18 +21,18 @@ public class InMemorySongService : ISongService
         return Task.FromResult(Songs);
     }
 
-    public Task<Song?> Get(int id)
+    public Task<Song?> Get(ObjectId id)
     {
         return Task.FromResult(Songs.FirstOrDefault(p => p.Id == id));
     }
     public Task Add(Song song)
     {
-        song.Id = nextId++;
+        song.Id = ObjectId.GenerateNewId();
         Songs.Add(song);
         return Task.CompletedTask;
     }
 
-    public async Task Delete(int id)
+    public async Task Delete(ObjectId id)
     {
         var song = await Get(id);
         if (song is null)

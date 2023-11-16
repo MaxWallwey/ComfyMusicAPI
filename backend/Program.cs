@@ -9,8 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<ISongService, InMemorySongService>();
-// builder.Services.AddSingleton<ISongService, MongoDBSongService>();
+// builder.Services.AddSingleton<ISongService, InMemorySongService>();
+builder.Services.AddSingleton<ISongService, MongoDBSongService>();
 
 var app = builder.Build();
 

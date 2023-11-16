@@ -1,6 +1,7 @@
 using ComfyMusic.Models;
 using ComfyMusic.Services;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace ComfyMusic.Controllers;
 
@@ -23,7 +24,7 @@ public class SongsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Song>> Get(int id)
+    public async Task<ActionResult<Song>> Get(ObjectId id)
     {
         var song = await _songService.Get(id);
 
@@ -43,7 +44,7 @@ public class SongsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, Song song)
+    public async Task<IActionResult> Update(ObjectId id, Song song)
     {
         if (id != song.Id)
         {
@@ -62,7 +63,7 @@ public class SongsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> Delete(ObjectId id)
     {
         var song = await _songService.Get(id);
 
