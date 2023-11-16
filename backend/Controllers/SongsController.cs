@@ -6,18 +6,24 @@ namespace ComfyMusic.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class SongController : ControllerBase
+public class SongsController : ControllerBase
 {
     [HttpGet]
-    public ActionResult<List<Song>> GetAll() => SongService.GetAll();
+    public ActionResult<List<Song>> GetAll()
+    {
+        return SongService.GetAll();
+    }
 
     [HttpGet("{id}")]
     public ActionResult<Song> Get(int id)
     {
         var song = SongService.Get(id);
 
-        if(song == null)
+        if (song == null)
+        {
             return NotFound();
+        }
+            
         return song;
     }
 
@@ -32,11 +38,15 @@ public class SongController : ControllerBase
     public IActionResult Update(int id, Song song)
     {
         if (id != song.Id)
+        {
             return BadRequest();
+        }
            
         var existingPizza = SongService.Get(id);
-        if(existingPizza is null)
+        if (existingPizza is null)
+        {
             return NotFound();
+        }
    
         SongService.Update(song);           
    
@@ -49,7 +59,9 @@ public class SongController : ControllerBase
         var song = SongService.Get(id);
 
         if (song is null)
+        {
             return NotFound();
+        }
         
         SongService.Delete(id);
 
