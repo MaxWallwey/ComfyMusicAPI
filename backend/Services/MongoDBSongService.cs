@@ -1,4 +1,5 @@
 using ComfyMusic.Collections;
+using ComfyMusic.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -21,25 +22,33 @@ public class MongoDBSongService : ISongService
         return documents.ToList();
     }
 
-    public async Task<Song?> Get(ObjectId id)
+    public async Task<Song?> Get(string id)
     {
         var document = await Collection.FindAsync(x => x.Id == id);
         return document.SingleOrDefault();
     }
 
-    public async Task Add(Song song)
+    public async Task Add(CreateUpdateSong song)
     {
-        await Collection.InsertOneAsync(song);
+        var newSong = new Song
+        {
+            Id = ObjectId.GenerateNewId().ToString(),
+            Name = song.Name,
+            Artist = song.Artist,
+            Album = song.Album,
+        };
+        
+        await Collection.InsertOneAsync(newSong);
     }
 
-    public async Task Delete(ObjectId id)
+    public async Task Delete(string id)
     {
         await Collection.DeleteOneAsync(x => x.Id == id);
     }
 
-    public async Task Update(Song song)
+    public async Task Update(string id, CreateUpdateSong song)
     {
-        var document = await Get(song.Id);
+        var document = await Get(id);
 
         if (document is not null)
         {
@@ -47,7 +56,7 @@ public class MongoDBSongService : ISongService
             document.Artist = song.Artist;
             document.Name = song.Name;
 
-            await Collection.ReplaceOneAsync(x => x.Id == ObjectId.Empty, document);
+            await Collection.ReplaceOneAsync(x => x.Id == id, document);
         }
     }
 }

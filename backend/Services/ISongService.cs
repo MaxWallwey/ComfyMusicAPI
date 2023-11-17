@@ -1,5 +1,5 @@
 using ComfyMusic.Collections;
-using MongoDB.Bson;
+using ComfyMusic.Models;
 
 namespace ComfyMusic.Services;
 
@@ -7,11 +7,11 @@ public interface ISongService
 {
     public Task<List<Song>> GetAll();
 
-    public Task<Song?> Get(ObjectId id);
+    public Task<Song?> Get(string id);
 
-    public Task Add(Song song);
+    public Task Add(CreateUpdateSong song);
 
-    public Task Delete(ObjectId id);
+    public Task Delete(string id);
 
-    public Task Update(Song song);
+    public Task Update(string id, CreateUpdateSong song);
 }

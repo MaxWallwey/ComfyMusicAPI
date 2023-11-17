@@ -1,6 +1,6 @@
 namespace ComfyMusic.Models;
 
-public class CreateSong
+public class CreateUpdateSong
 {
     public string? Name { get; set; }
     public string? Album { get; set; }
