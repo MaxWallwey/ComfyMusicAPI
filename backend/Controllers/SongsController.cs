@@ -1,3 +1,4 @@
+using ComfyMusic.Collections;
 using ComfyMusic.Models;
 using ComfyMusic.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,9 @@ public class SongsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Song>> Get(ObjectId id)
+    public async Task<ActionResult<Song>> Get(string id)
     {
-        var song = await _songService.Get(id);
+        var song = await _songService.Get(ObjectId.Parse(id));
 
         if (song == null)
         {
@@ -37,22 +38,30 @@ public class SongsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(Song song)
+    public async Task<ActionResult<Song>> Create(CreateSong song)
     {
-        await _songService.Add(song);
-        return CreatedAtAction(nameof(Get), new { id = song.Id }, song);
+        var newSong = new Song
+        {
+            Id = ObjectId.GenerateNewId(),
+            Name = song.Name,
+            Album = song.Album,
+            Artist = song.Artist,
+        };
+        
+        await _songService.Add(newSong);
+        return newSong;
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(ObjectId id, Song song)
+    public async Task<IActionResult> Update(string id, Song song)
     {
-        if (id != song.Id)
+        if (ObjectId.Parse(id) != song.Id)
         {
             return BadRequest();
         }
            
-        var existingPizza = await _songService.Get(id);
-        if (existingPizza is null)
+        var existingSong = await _songService.Get(ObjectId.Parse(id));
+        if (existingSong is null)
         {
             return NotFound();
         }
@@ -63,16 +72,16 @@ public class SongsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(ObjectId id)
+    public async Task<IActionResult> Delete(string id)
     {
-        var song = await _songService.Get(id);
+        var song = await _songService.Get(ObjectId.Parse(id));
 
         if (song is null)
         {
             return NotFound();
         }
         
-        await _songService.Delete(id);
+        await _songService.Delete(ObjectId.Parse(id));
 
         return NoContent();
     }

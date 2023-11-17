@@ -1,18 +1,18 @@
-using ComfyMusic.Models;
+using ComfyMusic.Collections;
 using MongoDB.Bson;
 
 namespace ComfyMusic.Services;
 
 public class InMemorySongService : ISongService
 {
-    static List<Song> Songs { get; }
-    static int nextId = 3;
-    static InMemorySongService()
+    public List<Song> Songs { get; }
+    
+    public InMemorySongService()
     {
         Songs = new List<Song>
         {
-            new Song { Id = ObjectId.GenerateNewId(), Name = "Rebel Rebel", Album = "Diamond Dogs", Artist = "David Bowie" },
-            new Song { Id = ObjectId.GenerateNewId(), Name = "Growing Sideways", Album = "Stick Season", Artist = "Noah Kahan" }
+            new() { Id = ObjectId.GenerateNewId(), Name = "Rebel Rebel", Album = "Diamond Dogs", Artist = "David Bowie" },
+            new() { Id = ObjectId.GenerateNewId(), Name = "Growing Sideways", Album = "Stick Season", Artist = "Noah Kahan" }
         };
     }
 
