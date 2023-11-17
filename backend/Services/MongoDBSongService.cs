@@ -6,35 +6,48 @@ namespace ComfyMusic.Services;
 
 public class MongoDBSongService : ISongService
 {
-    // TODO: Look at async 
-    public async Task<List<Song>> GetAll()
+    private IMongoCollection<Song> Collection { get; }
+
+    public MongoDBSongService()
     {
         var client = new MongoClient("mongodb://localhost:27017");
         var database = client.GetDatabase("comfy-music");
-        var collection = database.GetCollection<Song>("songs");
-
-        var list = await collection.Find(x => true).ToListAsync();
-
-        return list;
+        Collection = database.GetCollection<Song>("songs");
+    }
+    
+    public async Task<List<Song>> GetAll()
+    {
+        var documents = await Collection.FindAsync(x => true);
+        return documents.ToList();
     }
 
-    public Task<Song?> Get(ObjectId id)
+    public async Task<Song?> Get(ObjectId id)
     {
-        throw new NotImplementedException();
+        var document = await Collection.FindAsync(x => x.Id == id);
+        return document.SingleOrDefault();
     }
 
-    public Task Add(Song song)
+    public async Task Add(Song song)
     {
-        throw new NotImplementedException();
+        await Collection.InsertOneAsync(song);
     }
 
-    public Task Delete(ObjectId id)
+    public async Task Delete(ObjectId id)
     {
-        throw new NotImplementedException();
+        await Collection.DeleteOneAsync(x => x.Id == id);
     }
 
-    public Task Update(Song song)
+    public async Task Update(Song song)
     {
-        throw new NotImplementedException();
+        var document = await Get(song.Id);
+
+        if (document is not null)
+        {
+            document.Album = song.Album;
+            document.Artist = song.Artist;
+            document.Name = song.Name;
+
+            await Collection.ReplaceOneAsync(x => x.Id == ObjectId.Empty, document);
+        }
     }
 }
