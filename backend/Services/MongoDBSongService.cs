@@ -9,9 +9,9 @@ public class MongoDBSongService : ISongService
 {
     private IMongoCollection<Song> Collection { get; }
 
-    public MongoDBSongService()
+    public MongoDBSongService(IConfiguration configuration)
     {
-        var client = new MongoClient("mongodb://localhost:27017");
+        var client = new MongoClient(configuration["Mongo:ConnectionString"]);
         var database = client.GetDatabase("comfy-music");
         Collection = database.GetCollection<Song>("songs");
     }
