@@ -36,6 +36,7 @@ public class MongoDBSongService : ISongService
             Name = song.Name,
             Artist = song.Artist,
             Album = song.Album,
+            PlayCount = song.PlayCount,
         };
         
         await Collection.InsertOneAsync(newSong);
@@ -55,6 +56,7 @@ public class MongoDBSongService : ISongService
             document.Album = song.Album;
             document.Artist = song.Artist;
             document.Name = song.Name;
+            document.PlayCount = song.PlayCount;
 
             await Collection.ReplaceOneAsync(x => x.Id == id, document);
         }

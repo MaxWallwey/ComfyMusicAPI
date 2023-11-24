@@ -11,7 +11,6 @@ public class SongsController : ControllerBase
 {
     private readonly ISongService _songService;
 
-    // TODO: Read about dependency injection
     public SongsController(ISongService songService)
     {
         _songService = songService;
@@ -27,6 +26,8 @@ public class SongsController : ControllerBase
     public async Task<ActionResult<Song>> Get(string id)
     {
         var song = await _songService.Get(id);
+        
+        song.PlayCount++;ç
 
         if (song == null)
         {

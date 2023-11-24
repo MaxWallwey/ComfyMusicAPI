@@ -12,8 +12,8 @@ public class InMemorySongService : ISongService
     {
         Songs = new List<Song>
         {
-            new() { Id = ObjectId.GenerateNewId().ToString(), Name = "Rebel Rebel", Album = "Diamond Dogs", Artist = "David Bowie" },
-            new() { Id = ObjectId.GenerateNewId().ToString(), Name = "Growing Sideways", Album = "Stick Season", Artist = "Noah Kahan" }
+            new() { Id = ObjectId.GenerateNewId().ToString(), Name = "Rebel Rebel", Album = "Diamond Dogs", Artist = "David Bowie" , PlayCount = 2 },
+            new() { Id = ObjectId.GenerateNewId().ToString(), Name = "Growing Sideways", Album = "Stick Season", Artist = "Noah Kahan", PlayCount = 5 }
         };
     }
 
@@ -34,6 +34,7 @@ public class InMemorySongService : ISongService
             Name = song.Name,
             Artist = song.Artist,
             Album = song.Album,
+            PlayCount = song.PlayCount,
         };
         
         Songs.Add(newSong);
@@ -63,6 +64,7 @@ public class InMemorySongService : ISongService
         Songs[index].Name = song.Name;
         Songs[index].Artist = song.Artist;
         Songs[index].Album = song.Album;
+        Songs[index].PlayCount = song.PlayCount;
 
         return Task.CompletedTask;
     }
