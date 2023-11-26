@@ -27,7 +27,7 @@ public class SongsController : ControllerBase
     {
         var song = await _songService.Get(id);
         
-        song.PlayCount++;ç
+        song.PlayCount++;
 
         if (song == null)
         {
