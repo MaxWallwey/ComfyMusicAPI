@@ -2,6 +2,7 @@ using ComfyMusic.Collections;
 using ComfyMusic.Models;
 using ComfyMusic.Services;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace ComfyMusic.Controllers;
 
@@ -11,7 +12,6 @@ public class SongsController : ControllerBase
 {
     private readonly ISongService _songService;
 
-    // TODO: Read about dependency injection
     public SongsController(ISongService songService)
     {
         _songService = songService;
@@ -32,6 +32,10 @@ public class SongsController : ControllerBase
         {
             return NotFound();
         }
+
+        song.IncrementPlayCount();
+
+        await _songService.Update(song);
             
         return song;
     }
@@ -39,7 +43,7 @@ public class SongsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(CreateUpdateSong song)
     {
-        await _songService.Add(song);
+        await _songService.Add(new Song(song.Artist!, song.Album!, song.Name!));
         return Ok();
     }
 
@@ -51,8 +55,12 @@ public class SongsController : ControllerBase
         {
             return NotFound();
         }
+
+        existingSong.Artist = song.Artist;
+        existingSong.Album = song.Album;
+        existingSong.Name = song.Name;
    
-        await _songService.Update(id, song);           
+        await _songService.Update(existingSong);           
    
         return NoContent();
     }
