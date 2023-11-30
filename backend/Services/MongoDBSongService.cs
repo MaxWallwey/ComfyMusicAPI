@@ -28,18 +28,9 @@ public class MongoDBSongService : ISongService
         return document.SingleOrDefault();
     }
 
-    public async Task Add(CreateUpdateSong song)
-    {
-        var newSong = new Song
-        {
-            Id = ObjectId.GenerateNewId().ToString(),
-            Name = song.Name,
-            Artist = song.Artist,
-            Album = song.Album,
-            PlayCount = song.PlayCount,
-        };
-        
-        await Collection.InsertOneAsync(newSong);
+    public async Task Add(Song document)
+    {   
+        await Collection.InsertOneAsync(document);
     }
 
     public async Task Delete(string id)
@@ -47,18 +38,8 @@ public class MongoDBSongService : ISongService
         await Collection.DeleteOneAsync(x => x.Id == id);
     }
 
-    public async Task Update(string id, CreateUpdateSong song)
+    public async Task Update(Song document)
     {
-        var document = await Get(id);
-
-        if (document is not null)
-        {
-            document.Album = song.Album;
-            document.Artist = song.Artist;
-            document.Name = song.Name;
-            document.PlayCount = song.PlayCount;
-
-            await Collection.ReplaceOneAsync(x => x.Id == id, document);
-        }
+        await Collection.ReplaceOneAsync(x => x.Id == document.Id, document);
     }
 }

@@ -9,9 +9,9 @@ public interface ISongService
 
     public Task<Song?> Get(string id);
 
-    public Task Add(CreateUpdateSong song);
+    public Task Add(Song song);
 
     public Task Delete(string id);
 
-    public Task Update(string id, CreateUpdateSong song);
+    public Task Update(Song song);
 }
